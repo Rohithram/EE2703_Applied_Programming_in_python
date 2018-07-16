@@ -1,0 +1,9 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Python code}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Code to create a tan inverse function from its integral definition}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Integral definition of tan-1\(x\) and plotting it}{subsection.2.1}% 4
+\BOOKMARK [2][-]{subsection.2.2}{Integration using Trapezoidal rule}{section.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Implementing with for loops without vectorization}{subsection.2.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Trapezoidal rule using Vectorized Method}{subsection.2.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.3}{Calculating Estimate error and Exact error associated with Trapezoidal rule by halving stepsize}{subsection.2.2}% 8
+\BOOKMARK [1][-]{section.3}{Results and Discussion}{}% 9

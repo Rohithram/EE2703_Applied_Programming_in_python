@@ -1,0 +1,2975 @@
+% use this command to make the pdf
+% jupyter nbconvert --to pdf HW0.ipynb --template clean_report.tplx
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[10pt,a4paper]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \title{Spectra of non-periodic signals \\ Assignment 10}\author{Rohithram R, EE16B031 \\ B.Tech Electrical Engineering, IIT Madras}
+
+\date{\today}
+\maketitle
+
+
+    
+    
+
+    
+	
+	\begin{abstract}
+	\end{abstract}
+    \begin{itemize}
+\tightlist
+\item
+  This report will discuss about how to generate spectra out of sampled
+  data using DFT Discrete fourier transform for aperiodic signal time
+  domain. We use fast fourier transform algorithm to compute DFT which
+  is done by fft and fftshift.We also analyse the effect of Windowed
+  Fourier transform, and we estimate the \(\omega\) and \(\delta\) just
+  from the spectra of the signal using some statistic and calculate
+  estimated error.Finally we find DFT of a peculiar signal called
+  \(Chirp \ Signal\) whose frequency varies with time, so we use Short
+  time fourier transform to analyse how frequency evolves with time.
+\end{itemize}
+
+	
+
+	
+		
+    \section{Introduction}\label{introduction}
+
+\begin{itemize}
+\item
+  We explore digital fourier transform (DFT) with windowing. This is
+  used to make the signal square integrable, and more specifically, that
+  the function goes sufficiently rapidly towards 0 , also to make
+  infinitely long signal to a finite signal, since to take DFT we need
+  finite aperiodic signal.
+\item
+  Windowing a simple waveform like \(cos(\omega t)\), causes its fourier
+  transform to develop non-zero value at frequencies other than
+  \(\omega\). This is called \emph{Spectral Leakage}. This can cause in
+  some applications the stronger peak to smear the weaker contounter
+  parts. So choosing proper windowing functions is essential. The
+  windowing function we use is called \textbf{Hamming window} which is
+  generally used in \(narrow-band applications\).
+\end{itemize}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} load libraries and set plot parameters}
+\PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{o}{*}
+\PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{mplot3d} \PY{k}{import} \PY{n}{Axes3D}
+\PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{cm}
+\PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{import} \PY{n}{LinearLocator}\PY{p}{,} \PY{n}{FormatStrFormatter}
+
+\PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{set\PYZus{}matplotlib\PYZus{}formats}
+\PY{n}{set\PYZus{}matplotlib\PYZus{}formats}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savefig.dpi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{75}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.autolayout}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{False}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{6}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{18}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.titlesize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{20}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{16}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.linewidth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{2.0}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.markersize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{6}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{18}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.numpoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.fancybox}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.shadow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text.usetex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{serif}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cm}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text.latex.preamble}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{usepackage}\PY{l+s+si}{\PYZob{}subdepth\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{usepackage}\PY{l+s+si}{\PYZob{}type1cm\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\PY{l+s+sd}{Function to select different functions}
+\PY{l+s+sd}{Arguments:}
+\PY{l+s+sd}{ t \PYZhy{}\PYZgt{} vector of time values}
+\PY{l+s+sd}{ n \PYZhy{}\PYZgt{} encoded from 1 to 3 to select function}
+\PY{l+s+sd}{ w \PYZhy{}\PYZgt{} frequency of cos\PYZca{}3 function, which is by default 0.86}
+\PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+
+\PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{n}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}\PY{n}{d}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if}\PY{p}{(}\PY{n}{n} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+        \PY{k}{return} \PY{n}{sin}\PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+    \PY{k}{elif}\PY{p}{(}\PY{n}{n}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+        \PY{k}{if}\PY{p}{(}\PY{n}{w} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n+nb}{pow}\PY{p}{(}\PY{n}{cos}\PY{p}{(}\PY{l+m+mf}{0.86}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{k}{elif}\PY{p}{(}\PY{n}{w}\PY{o}{!=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n+nb}{pow}\PY{p}{(}\PY{n}{cos}\PY{p}{(}\PY{n}{w}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+    \PY{k}{elif}\PY{p}{(}\PY{n}{n}\PY{o}{==}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+        \PY{k}{return} \PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{16}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{+}\PY{n}{t}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+    \PY{k}{elif}\PY{p}{(}\PY{n}{n}\PY{o}{==}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+        \PY{k}{return} \PY{n}{t}
+    \PY{k}{elif}\PY{p}{(}\PY{n}{n}\PY{o}{==}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+        \PY{k}{if}\PY{p}{(}\PY{n}{w} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{cos}\PY{p}{(}\PY{l+m+mf}{0.86}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+        \PY{k}{elif}\PY{p}{(}\PY{n}{w}\PY{o}{!=}\PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{d}\PY{o}{!=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{cos}\PY{p}{(}\PY{n}{w}\PY{o}{*}\PY{n}{t}\PY{o}{+}\PY{n}{d}\PY{p}{)}
+    \PY{k}{else}\PY{p}{:}
+        \PY{k}{return} \PY{n}{sin}\PY{p}{(}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{window\PYZus{}fn}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\PY{l+s+sd}{Function to find Discrete Fourier Transform}
+\PY{l+s+sd}{Arguments:}
+\PY{l+s+sd}{ low\PYZus{}lim,up\PYZus{}lim \PYZhy{}\PYZgt{} lower \PYZam{} upper limit for time vector}
+\PY{l+s+sd}{ no\PYZus{}points      \PYZhy{}\PYZgt{} Sampling rate}
+\PY{l+s+sd}{ f              \PYZhy{}\PYZgt{} function to compute DFT for}
+\PY{l+s+sd}{ n              \PYZhy{}\PYZgt{} mapped value for a function ranges(1,6)}
+\PY{l+s+sd}{ norm\PYZus{}factor    \PYZhy{}\PYZgt{} default none, only for Gaussian function}
+\PY{l+s+sd}{                   it is given as parameter}
+\PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+
+\PY{k}{def} \PY{n+nf}{findFFT}\PY{p}{(}\PY{n}{low\PYZus{}lim}\PY{p}{,}\PY{n}{up\PYZus{}lim}\PY{p}{,}\PY{n}{no\PYZus{}points}\PY{p}{,}\PY{n}{n}\PY{p}{,}\PY{n}{window}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{wo}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}\PY{n}{d}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{n}{low\PYZus{}lim}\PY{p}{,}\PY{n}{up\PYZus{}lim}\PY{p}{,}\PY{n}{no\PYZus{}points}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+    \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+    \PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+    \PY{n}{N} \PY{o}{=} \PY{n}{no\PYZus{}points}
+    \PY{n}{y} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{n}\PY{p}{,}\PY{n}{wo}\PY{p}{,}\PY{n}{d}\PY{p}{)}\PY{o}{+}\PY{n}{eps}\PY{o}{*}\PY{n}{randn}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}
+    
+    \PY{k}{if}\PY{p}{(}\PY{n}{window}\PY{p}{)}\PY{p}{:}
+        \PY{n}{n1}\PY{o}{=}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+        \PY{n}{wnd}\PY{o}{=}\PY{n}{fftshift}\PY{p}{(}\PY{n}{window\PYZus{}fn}\PY{p}{(}\PY{n}{n1}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+        \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{o}{*}\PY{n}{wnd}
+        
+    \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0}        \PY{c+c1}{\PYZsh{} the sample corresponding to \PYZhy{}tmax should be set zeroo}
+    \PY{n}{y}\PY{o}{=}\PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{c+c1}{\PYZsh{} make y start with y(t=0)}
+    \PY{n}{Y}\PY{o}{=}\PY{n}{fftshift}\PY{p}{(}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{N}
+
+    \PY{n}{w} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}        
+    \PY{k}{return} \PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\PY{l+s+sd}{Function to plot Magnitude and Phase spectrum for given function}
+\PY{l+s+sd}{Arguments:}
+\PY{l+s+sd}{ t              \PYZhy{}\PYZgt{} time vector}
+\PY{l+s+sd}{ Y              \PYZhy{}\PYZgt{} DFT computed}
+\PY{l+s+sd}{ w              \PYZhy{}\PYZgt{} frequency vector}
+\PY{l+s+sd}{ Xlims,Ylims    \PYZhy{}\PYZgt{} limits for x\PYZam{}y axis for spectrum}
+\PY{l+s+sd}{ plot\PYZus{}title,fig\PYZus{}no \PYZhy{}\PYZgt{} title of plot and figure no}
+\PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+
+\PY{k}{def} \PY{n+nf}{plot\PYZus{}FFT}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{Xlims}\PY{p}{,}\PY{n}{plot\PYZus{}title}\PY{p}{,}\PY{n}{fig\PYZus{}no}\PY{p}{,}\PY{n}{dotted}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{Ylims}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+    
+    \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+    \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+    
+    \PY{k}{if}\PY{p}{(}\PY{n}{dotted}\PY{p}{)}\PY{p}{:}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+
+    \PY{n}{xlim}\PY{p}{(}\PY{n}{Xlims}\PY{p}{)}
+        
+    \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}|Y(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega)| }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{title}\PY{p}{(}\PY{n}{plot\PYZus{}title}\PY{p}{)}
+    \PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+    
+    \PY{n}{ax} \PY{o}{=} \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+    \PY{n}{ii}\PY{o}{=}\PY{n}{where}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.005}\PY{p}{)}
+    \PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{,}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+
+    \PY{k}{if}\PY{p}{(}\PY{n}{Ylims}\PY{o}{!=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+        \PY{n}{ylim}\PY{p}{(}\PY{n}{Ylims}\PY{p}{)}
+    
+    \PY{n}{xlim}\PY{p}{(}\PY{n}{Xlims}\PY{p}{)}
+    \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{angle Y(j}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+    \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{fig\PYZus{}no}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+    \begin{itemize}
+\tightlist
+\item
+  Working all the examples given using both windowed Fourier transform
+  and without windowing and analyse the effect.
+\end{itemize}
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{findFFT}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{Xlims} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}
+\PY{n}{title\PYZus{}plot} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 1 : Spectrum of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{plot\PYZus{}FFT}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{Xlims}\PY{p}{,}\PY{n}{title\PYZus{}plot}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_9_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{t1}\PY{o}{=}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t1}\PY{o}{=}\PY{n}{t1}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{t2}\PY{o}{=}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t2}\PY{o}{=}\PY{n}{t2}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{t3}\PY{o}{=}\PY{n}{linspace}\PY{p}{(}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t3}\PY{o}{=}\PY{n}{t3}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+
+\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{plot}\PY{p}{(}\PY{n}{t1}\PY{p}{,}\PY{n}{f}\PY{p}{(}\PY{n}{t1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{plot}\PY{p}{(}\PY{n}{t2}\PY{p}{,}\PY{n}{f}\PY{p}{(}\PY{n}{t2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{plot}\PY{p}{(}\PY{n}{t3}\PY{p}{,}\PY{n}{f}\PY{p}{(}\PY{n}{t3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y(t) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}t }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 2 : \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}2.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_10_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{t1}\PY{o}{=}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t1}\PY{o}{=}\PY{n}{t1}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{t2}\PY{o}{=}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t2}\PY{o}{=}\PY{n}{t2}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{t3}\PY{o}{=}\PY{n}{linspace}\PY{p}{(}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t3}\PY{o}{=}\PY{n}{t3}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{y}\PY{o}{=}\PY{n}{f}\PY{p}{(}\PY{n}{t1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+
+\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\PY{n}{plot}\PY{p}{(}\PY{n}{t1}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{plot}\PY{p}{(}\PY{n}{t2}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{plot}\PY{p}{(}\PY{n}{t3}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y(t) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}t }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 3 : \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)\PYZdl{} with \PYZdl{}t\PYZdl{} wrapping every \PYZdl{}2}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{pi\PYZdl{} }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}3.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_11_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{findFFT}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{k+kc}{False}\PY{p}{)}
+
+\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+\PY{n}{semilogx}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{20}\PY{o}{*}\PY{n}{log10}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\PY{n}{xticks}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}20}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{log\PYZus{}}\PY{l+s+si}{\PYZob{}10\PYZcb{}}\PY{l+s+s2}{|Y(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega)|\PYZdl{} (dB) \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{} }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 4 : Spectrum of a digital ramp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}4.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_12_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+    \subsection{Analysing the effect of Windowing the
+signal:}\label{analysing-the-effect-of-windowing-the-signal}
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{t1}\PY{o}{=}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{t2}\PY{o}{=}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{t3}\PY{o}{=}\PY{n}{linspace}\PY{p}{(}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{n}\PY{o}{=}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+\PY{n}{wnd}\PY{o}{=}\PY{n}{fftshift}\PY{p}{(}\PY{n}{window\PYZus{}fn}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+\PY{n}{y}\PY{o}{=}\PY{n}{f}\PY{p}{(}\PY{n}{t1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{wnd}
+
+\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\PY{n}{plot}\PY{p}{(}\PY{n}{t1}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{plot}\PY{p}{(}\PY{n}{t2}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{plot}\PY{p}{(}\PY{n}{t3}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y(t) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}t }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+\PY{n}{plt\PYZus{}title} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 5 : \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{times w(t)\PYZdl{} with \PYZdl{}t\PYZdl{} wrapping every \PYZdl{}2}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{pi\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{title}\PY{p}{(}\PY{n}{plt\PYZus{}title}\PY{p}{)}
+\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}5.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_14_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{findFFT}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{Xlims} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}
+\PY{n}{title\PYZus{}plot} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 6: Spectrum of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{times }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{plot\PYZus{}FFT}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{Xlims}\PY{p}{,}\PY{n}{title\PYZus{}plot}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_15_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{findFFT}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{256}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{Xlims} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}
+\PY{n}{plot\PYZus{}title} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 7 : Spectrum of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{times }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{plot\PYZus{}FFT}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{Xlims}\PY{p}{,}\PY{n}{plot\PYZus{}title}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_16_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+    \begin{itemize}
+\tightlist
+\item
+  Well it is quite a bit better since we are now zoomed in and see a lot
+  more detail. But why is it not just a single peak?
+\item
+  The reason for that is \(w(t)\). Multiplication in time is convolution
+  in frequency and vice versa. So by multiplying with \(w(t)\), we got
+  rid of the 1= f decay.
+\item
+  But the delta function is now replaced by the shape of the DFT of
+  w{[}n{]}.
+\item
+  That gives us a factor of two broadening over the peak when there is
+  no window, which is why we still see a peak whose width is two
+  samples.
+\end{itemize}
+
+	
+
+	
+		
+    \subsection{Question 2:}\label{question-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Consider the function \(\cos^3(\omega_0 t)\). Obtain its spectrum for
+  \(\omega_0 = 0.86\) with and without a Hamming window.
+\end{itemize}
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{findFFT}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{256}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{Xlims} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}
+\PY{n}{plot\PYZus{}title} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 8 : Spectrum of Windowed \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos\PYZca{}3(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZus{}o t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{plot\PYZus{}FFT}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{Xlims}\PY{p}{,}\PY{n}{plot\PYZus{}title}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_19_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{findFFT}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{256}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{Xlims} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}
+\PY{n}{plot\PYZus{}title} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 9 : Spectrum of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos\PYZca{}3(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZus{}o t)\PYZdl{} without windowing}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{plot\PYZus{}FFT}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{Xlims}\PY{p}{,}\PY{n}{plot\PYZus{}title}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{9}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_20_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+    \subsubsection{Results and Discussion:}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  Here we can see clear differences between the windowed fourier
+  transform and fourier transform without application of windows. Peak
+  is being smeared by the windowing function but the stary high
+  frequency components are attenuated by the window function. The
+  \emph{spectral leakage} can also be noticed.
+\end{itemize}
+
+	
+
+	
+		
+    \subsection{Question 3:}\label{question-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Write a program that will take a 128 element vector known to contain
+  \(\cos(\omega_0 t + \delta)\) for arbitrary \(\delta\) and
+  \(0.5 < \omega_0 < 1.5\) where \(\pi \leq t \leq \pi\).
+\item
+  You have to extract the digital spectrum of the signal, find the two
+  peaks at \(\pm \omega_0\), and estimate \(\omega_0\) and \(\delta\).
+\end{itemize}
+
+** Estimating \(\omega\) and \(\delta\) from fourier spectrum**
+
+\begin{itemize}
+\item
+  According to the question the if the spectra is obtained, the
+  resolution is not enough to obtain the \(\omega_0\) directly. The peak
+  will not be visible clearly because of the fact that resolution of the
+  frequecny axis is not enough. So a statistic is necessary to estimate
+  value of \(\omega_0\)
+\item
+  Let,
+\end{itemize}
+
+\begin{equation}
+\mu = Mean(|Y(\omega)|)
+\end{equation}
+
+\begin{equation}
+\sigma = Standard\ Deviation(|Y(\omega)|)
+\end{equation}
+
+\begin{equation}
+\omega_0 = \frac{\sum \omega_i |Y(\omega_i)|}{\sum |Y(\omega_i)|} \\
+\\
+\forall \omega_i\ where\ |Y(\omega_i)| > \mu + 0.1\sigma
+\end{equation}
+
+\begin{itemize}
+\item
+  Which is essentially the weighted average of \(\omega\) where weights
+  are \(|Y(\omega)|\) subject to constraint that \(|Y(j\omega)|\) must
+  be greater than a value as specified in the formula.
+\item
+  Now, \(\delta\) can be found by two ways
+\item
+  Least square fitting of
+\end{itemize}
+
+\begin{equation}
+y(t) = A\cos(\omega_0 t) + B\sin(\omega_0 t)
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  Minimizing L2-norm to find the coefficients \(A, B\), we can compute
+  \(\delta\) by,
+\end{itemize}
+
+\begin{equation}
+\delta = -\tan^{-1}(\frac{B}{A})
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  Second approach
+\item
+  Find the phase of the discrete fourier transform at \(\omega_o\)
+  nearest to estimated \(\omega\) using the above statistic.
+\item
+  This works because the phase of \(\cos(\omega_o t+\delta)\) when
+  \(\delta = 0\) is 0, so when its not its \(\delta\), so we can
+  estimate it by this approach.
+\item
+  The latter approach is used in this assignment.
+\end{itemize}
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{estimate\PYZus{}omega}\PY{p}{(}\PY{n}{low\PYZus{}lim}\PY{p}{,}\PY{n}{up\PYZus{}lim}\PY{p}{,}\PY{n}{eps}\PY{p}{)}\PY{p}{:}
+    \PY{n}{w\PYZus{}actual} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{low\PYZus{}lim}\PY{p}{,}\PY{n}{up\PYZus{}lim}\PY{p}{)}
+    \PY{n}{delta\PYZus{}actual} \PY{o}{=} \PY{p}{(}\PY{n}{randn}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+    \PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{findFFT}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1}\PY{o}{*}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{128}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{k+kc}{True}\PY{p}{,}\PY{n}{w\PYZus{}actual}\PY{p}{,}\PY{n}{delta\PYZus{}actual}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{n}{eps}\PY{p}{)}
+    
+    \PY{n}{Y\PYZus{}half} \PY{o}{=} \PY{n}{Y}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}\PY{p}{]}
+    \PY{n}{w\PYZus{}half} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}\PY{p}{]}
+    \PY{n}{k} \PY{o}{=} \PY{l+m+mf}{0.1}
+    \PY{n}{idx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y\PYZus{}half}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y\PYZus{}half}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{n}{k}\PY{o}{*}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y\PYZus{}half}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+    
+    \PY{n}{w0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{w\PYZus{}half}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{,}
+                   \PY{n}{np}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y\PYZus{}half}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y\PYZus{}half}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+    
+    \PY{n}{w\PYZus{}peak\PYZus{}idx} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{w\PYZus{}half}\PY{o}{\PYZhy{}}\PY{n}{w0}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}\PY{p}{)}
+    \PY{n}{delta}      \PY{o}{=} \PY{n}{angle}\PY{p}{(}\PY{n}{Y\PYZus{}half}\PY{p}{[}\PY{n}{w\PYZus{}peak\PYZus{}idx}\PY{p}{]}\PY{p}{)}
+    
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Actual w0 : }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{ , Actual delta : }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{w\PYZus{}actual}\PY{p}{,}\PY{n}{delta\PYZus{}actual}\PY{p}{)}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}     Xlims = [\PYZhy{}8,8]}
+\PY{c+c1}{\PYZsh{}     plot\PYZus{}title = r\PYZdq{}Figure 10 : Spectrum of \PYZdl{}\PYZbs{}cos(\PYZbs{}omega\PYZus{}o t + \PYZbs{}delta)\PYZdl{}\PYZdq{}}
+\PY{c+c1}{\PYZsh{}     plot\PYZus{}FFT(t,Y,w,Xlims,plot\PYZus{}title,\PYZdq{}10\PYZdq{}) }
+    \PY{k}{return} \PY{n}{t}\PY{p}{,}\PY{n}{w0}\PY{p}{,}\PY{n}{delta}\PY{p}{,}\PY{n}{w\PYZus{}actual}\PY{p}{,}\PY{n}{delta\PYZus{}actual}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}function to create Matrix for finding the Best fit using lstsq}
+\PY{c+c1}{\PYZsh{} with no\PYZus{}of rows, columns by default 2 and vector x as arguments}
+\PY{k}{def} \PY{n+nf}{createAmatrix}\PY{p}{(}\PY{n}{nrow}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{model}\PY{p}{,}\PY{n}{wo}\PY{p}{)}\PY{p}{:}
+    \PY{n}{A} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{nrow}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} allocate space for A}
+    \PY{n}{A}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{A}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{wo}\PY{p}{)}
+    \PY{k}{return} \PY{n}{A}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} function to calculate model A}
+\PY{k}{def} \PY{n+nf}{modelA}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{wo}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{p}{(}\PY{n}{cos}\PY{p}{(}\PY{n}{wo}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{p}{,}\PY{n}{sin}\PY{p}{(}\PY{n}{wo}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{estimate\PYZus{}delta}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{wo}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+    \PY{n}{M} \PY{o}{=} \PY{n}{createAmatrix}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{modelA}\PY{p}{,}\PY{n}{wo}\PY{p}{)}
+    \PY{n}{c} \PY{o}{=} \PY{p}{(}\PY{n}{lstsq}\PY{p}{(}\PY{n}{M}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{}calculating delta}
+    \PY{n}{delta} \PY{o}{=} \PY{n}{arccos}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{+}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+    \PY{k}{return} \PY{n}{delta}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{estimator}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{eps}\PY{p}{)}\PY{p}{:}
+    \PY{n}{est\PYZus{}err\PYZus{}w} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{n}{est\PYZus{}err\PYZus{}delta} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+        \PY{n}{t}\PY{p}{,}\PY{n}{wo\PYZus{}est}\PY{p}{,}\PY{n}{delta\PYZus{}est}\PY{p}{,}\PY{n}{w\PYZus{}actual}\PY{p}{,}\PY{n}{delta\PYZus{}actual} \PY{o}{=} \PY{n}{estimate\PYZus{}omega}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{1.5}\PY{p}{,}\PY{n}{eps}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}         actual\PYZus{}fn = cos(w\PYZus{}actual*t+delta\PYZus{}actual)}
+\PY{c+c1}{\PYZsh{}         est\PYZus{}fn    = cos(wo\PYZus{}est*t+delta\PYZus{}est)}
+        \PY{n}{est\PYZus{}err\PYZus{}w}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{amax}\PY{p}{(}\PY{n}{w\PYZus{}actual}\PY{o}{\PYZhy{}}\PY{n}{wo\PYZus{}est}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{est\PYZus{}err\PYZus{}delta}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{amax}\PY{p}{(}\PY{n}{delta\PYZus{}actual}\PY{o}{\PYZhy{}}\PY{n}{delta\PYZus{}est}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Estimated w0 : }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{ and delta : }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{p}{(}\PY{n}{wo\PYZus{}est}\PY{p}{)}\PY{p}{,}\PY{n}{delta\PYZus{}est}\PY{p}{)}\PY{p}{)}
+    \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{est\PYZus{}err\PYZus{}w}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{est\PYZus{}err\PYZus{}delta}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{eps} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{5}
+\PY{n}{estimated\PYZus{}error\PYZus{}w}\PY{p}{,}\PY{n}{estimated\PYZus{}error\PYZus{}delta} \PY{o}{=} \PY{n}{estimator}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{eps}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Estimated Error for }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{ sample signals without Noise addition in w0 and delta : }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{ , }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}
+      \PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{estimated\PYZus{}error\PYZus{}w}\PY{p}{,}\PY{n}{estimated\PYZus{}error\PYZus{}delta}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Actual w0 : 0.76422 , Actual delta : 0.00809866
+Estimated w0 : 0.60583 and delta : 0.00760234 
+
+Actual w0 : 0.8045 , Actual delta : -0.324797
+Estimated w0 : 0.653676 and delta : -0.311079 
+
+Actual w0 : 0.787655 , Actual delta : 1.45152
+Estimated w0 : 1.09362 and delta : 1.4451 
+
+Actual w0 : 0.974214 , Actual delta : 1.80678
+Estimated w0 : 1.12176 and delta : 1.80713 
+
+Actual w0 : 0.915156 , Actual delta : 2.52514
+Estimated w0 : 0.794433 and delta : 2.53119 
+
+
+Estimated Error for 5 sample signals without Noise addition in w0 and delta : 0.17669 , 0.00540536
+
+    \end{Verbatim}
+
+	
+		
+    \subsubsection{Results and Discussion:}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  As we observe that actual \(\omega\) \& \(\delta\) are generated using
+  uniformly distributed random functions, and using the above center of
+  mass statistic we get estimated ones close with error in order of 1\%
+\end{itemize}
+
+	
+
+	
+		
+    \subsection{Question 4:}\label{question-4}
+
+\begin{itemize}
+\tightlist
+\item
+  Now we add \textbf{white gaussian noise} to data in \(Q_3\). This can
+  be generated by \(randn()\) in python. The extent of this noise is
+  \(0.1\) in amplitude (i.e., \(0.1*randn(N)\), where \(N\) is the
+  number of samples).
+\item
+  Repeat the problem and find the \(\omega_0\) and \(\delta\)
+\end{itemize}
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{eps} \PY{o}{=} \PY{l+m+mf}{0.1}
+\PY{n}{N}   \PY{o}{=} \PY{l+m+mi}{5}
+\PY{n}{estimated\PYZus{}error\PYZus{}w}\PY{p}{,}\PY{n}{estimated\PYZus{}error\PYZus{}delta} \PY{o}{=} \PY{n}{estimator}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{eps}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Estimated Error for }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{ sample signals with Noise addition in w0 and delta : }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{ , }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}
+      \PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{estimated\PYZus{}error\PYZus{}w}\PY{p}{,}\PY{n}{estimated\PYZus{}error\PYZus{}delta}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Actual w0 : 0.593301 , Actual delta : -0.266225
+Estimated w0 : 0.499905 and delta : 0 
+
+Actual w0 : 0.548121 , Actual delta : 1.55857
+Estimated w0 : 1.8753 and delta : 1.33306 
+
+Actual w0 : 1.193 , Actual delta : 1.13629
+Estimated w0 : 1.19393 and delta : 1.15778 
+
+Actual w0 : 0.981655 , Actual delta : 0.454583
+Estimated w0 : 0.843122 and delta : 0.452327 
+
+Actual w0 : 0.923021 , Actual delta : 0.165297
+Estimated w0 : 0.737823 and delta : 0.155109 
+
+
+Estimated Error for 5 sample signals with Noise addition in w0 and delta : 0.349047 , 0.105134
+
+    \end{Verbatim}
+
+	
+		
+    \subsubsection{Results and Discussion:}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  Now we add noise to the function and try to estimate the \(\omega\) \&
+  \(\delta\) from the spectrum.
+\item
+  We follow same procedure as above case and we can observe that
+  \(\omega\) \& \(\delta\) are generated using uniformly distributed
+  random functions, and using the above center of mass statistic we get
+  estimated ones close with error in order of 10\% in \(\omega\) and 1\%
+  in \(\delta\)
+\item
+  This error is slightly higher compared to the case without noise as we
+  expected.
+\end{itemize}
+
+	
+
+	
+		
+    \subsection{Question 5 - Analysis of Chirped Signal
+Spectrum}\label{question-5---analysis-of-chirped-signal-spectrum}
+
+\begin{itemize}
+\tightlist
+\item
+  Plot the \(DFT\) of the function
+  \(\cos(16 \ (1.5 + \frac{t}{2\pi}) \ t)\) where
+  \(-\pi \leq t \leq \pi\) in \(1024\) steps. This is known as a
+  \(chirped\) signal.
+\item
+  Its frequency continuously changes from \(16\) to \(32\) radians per
+  second. This also means that the period is \(64\) samples near
+  \(−\pi\) and is \(32\) samples near \(+\pi\).
+\end{itemize}
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{chirp}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{16}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{+}\PY{n}{t}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{t} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{1024}
+\PY{n}{y} \PY{o}{=} \PY{n}{chirp}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+\PY{n}{Y}\PY{o}{=}\PY{n}{fftshift}\PY{p}{(}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{N}
+\PY{n}{w} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}       
+\PY{n}{Xlims} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{]}
+\PY{n}{plot\PYZus{}title} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 10 : Spectrum of Non\PYZhy{}Windowed Chirped Signal}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{plot\PYZus{}FFT}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{Xlims}\PY{p}{,}\PY{n}{plot\PYZus{}title}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_35_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{t} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{1024}
+\PY{n}{y} \PY{o}{=} \PY{n}{chirp}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+
+\PY{n}{n1}\PY{o}{=}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+\PY{n}{wnd}\PY{o}{=}\PY{n}{fftshift}\PY{p}{(}\PY{n}{window\PYZus{}fn}\PY{p}{(}\PY{n}{n1}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+\PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{o}{*}\PY{n}{wnd}
+\PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{y} \PY{o}{=} \PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+\PY{n}{Y} \PY{o}{=} \PY{n}{fftshift}\PY{p}{(}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{1024.0}
+\PY{n}{w} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}       
+
+\PY{n}{Xlims} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{]}
+\PY{n}{plot\PYZus{}title} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 11: Spectrum of Windowed Chirped Signal}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{plot\PYZus{}FFT}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{Xlims}\PY{p}{,}\PY{n}{plot\PYZus{}title}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_36_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+    \subsection{Question 6:}\label{question-6}
+
+\begin{itemize}
+\tightlist
+\item
+  For the same chirped signal, break the \(1024\) vector into pieces
+  that are \(64\) samples wide. Extract the \(DFT\) of each and store as
+  a column in a 2D array.
+\item
+  Then plot the array as a surface plot to show how the frequency of the
+  signal varies with time.
+\item
+  Plot and analyse the \textbf{time frequency} plot, where we get
+  localized \(DFTs\) and show how the spectrum evolves in time.
+\end{itemize}
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{partition}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t\PYZus{}batches} \PY{o}{=} \PY{p}{[}\PY{n}{t}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{n}\PY{o}{+}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{n}\PY{p}{)}\PY{p}{]}
+    \PY{k}{return} \PY{n}{t\PYZus{}batches}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{STFT}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{no\PYZus{}samples}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+    \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\PY{c+c1}{\PYZsh{}     print(dt)}
+    \PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+    \PY{n}{N} \PY{o}{=} \PY{n}{no\PYZus{}samples}
+    \PY{n}{y} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+    
+    \PY{n}{n1}\PY{o}{=}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+    \PY{n}{wnd}\PY{o}{=}\PY{n}{fftshift}\PY{p}{(}\PY{n}{window\PYZus{}fn}\PY{p}{(}\PY{n}{n1}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+    \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{o}{*}\PY{n}{wnd}
+        
+    \PY{n}{Y}\PY{o}{=}\PY{n}{fftshift}\PY{p}{(}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{N}
+    
+    \PY{n}{w} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}        
+    \PY{k}{return} \PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+    \begin{itemize}
+\tightlist
+\item
+  From the 1024 dimensional vector, we take 64 dimensional sub-vector,
+  and find the fourier transform and we will see how it evolves in
+  time.This is known as \textbf{Short time Fourier Transform} (STFT)
+\end{itemize}
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{64}
+\PY{n}{t\PYZus{}batches} \PY{o}{=} \PY{n}{partition}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+
+\PY{n}{batch\PYZus{}dfts} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\PY{n}{batch\PYZus{}ts}   \PY{o}{=} \PY{p}{[}\PY{p}{]}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{t\PYZus{}batches}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+    \PY{n}{t}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{w} \PY{o}{=} \PY{n}{STFT}\PY{p}{(}\PY{n}{t\PYZus{}batches}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+    \PY{n}{batch\PYZus{}dfts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+    \PY{n}{batch\PYZus{}ts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{t} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{p}{,}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{T}\PY{p}{,} \PY{n}{W} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{960}\PY{p}{]}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+\PY{n}{Z} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{batch\PYZus{}dfts}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{fig} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+\PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{T}\PY{p}{,}\PY{n}{W}\PY{p}{,}\PY{n}{Z}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure: 12 \PYZhy{} Contour plot of the magnitude of the spectrum}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}time }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_43_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+    \subsubsection{Results and Discussion:}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  We observe that the magnitude of the fourier transform splits as time
+  progresses as the frequency of the signal increases.
+\end{itemize}
+
+	
+
+	
+		
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+\PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Plot the surface.}
+\PY{n}{surf} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{T}\PY{p}{,}\PY{n}{W}\PY{p}{,}\PY{p}{(}\PY{n}{Z}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{jet}\PY{p}{,}
+                       \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}
+
+\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure: 13 \PYZhy{} Surface plot of \PYZdl{}|Y(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega)|\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}t }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{to\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{omega }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{to\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}zlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}|Y(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{omega)| }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{to\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Add a color bar which maps values to colors.}
+\PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{surf}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+	
+
+	
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ee16b031_assignment10_files/ee16b031_assignment10_45_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+	
+		
+    \subsubsection{Results \& Discussion:}\label{results-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  This is the 3-d surface plot of the magnitude of fourier transform
+  plotted \(vs\) time and frequency.
+\item
+  Here we observe strong peaks and as inferred from the contour plot of
+  the magnitude spectrum we see 2 lobes whose separation increases as
+  time increases.
+\end{itemize}
+
+	
+
+	
+		
+    \subsection{Conclusion :}\label{conclusion}
+
+\begin{itemize}
+\tightlist
+\item
+  Here in this assignment we implemented windowed fourier transform and
+  also understood the need for windowing and also effects of windowing.
+\item
+  Moreover,we implemented \textbf{Short time Fourier Transform} and
+  witnessed how fourier transform evolves in time.
+\end{itemize}
+
+	
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

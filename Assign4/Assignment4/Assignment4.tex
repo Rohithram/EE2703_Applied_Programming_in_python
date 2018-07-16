@@ -1,0 +1,1006 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[a4paper,10pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    
+	\title{Fitting Data to Models\\ Assignment 4}
+    \author{Rohithram R, EE16B031 \\ B.Tech Electrical Engineering, IIT Madras}
+    \date{\today \\ First created on February 15,2018}        
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+\begin{abstract}
+\end{abstract}
+
+ This report will discuss about Study of fitting of data using models
+and to Study the effect of noise on the fitting process,in particular we
+analyse the Bessel function \(J_{v}(x)\) and use Least Squares Fitting
+to predict the type of Bessel function that is to estimate '\(\nu\)'
+with approximated model for large \(x\) in Eq(2) using accurate values
+of \(J_{v}(x)\) (data to fit) calculated using inbuilt function in
+python.
+
+    \section{Introduction}\label{introduction}
+
+\begin{itemize}
+\tightlist
+\item
+  The Bessel functions of the first kind \(J_{v}(x)\) are defined as the
+  solutions to the Bessel differential equation
+\end{itemize}
+
+\begin{equation}
+x^{2} \frac{d^2 y}{dx^2} + x\frac{dy}{dx}+(x^2-\nu^2)y = 0
+   \end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  Here we use model given in Eq(2) for large \(x\) as a target model to
+  estimate the parameters such as \(\nu\) for the predicted model which
+  is obtained by fitting the data using Least Squares.
+
+  \begin{equation}
+  J_{v}(x) \approx \sqrt\frac{2}{\pi x}\cos(x-\frac{\nu\pi}{2}-\frac{\pi}{4})
+  \end{equation}
+\end{itemize}
+
+    \section{Python Code :}\label{python-code}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} load libraries and set plot parameters}
+        \PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{integrate} \PY{k}{import} \PY{n}{quad}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{special} \PY{k}{as} \PY{n+nn}{sp}
+        
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{set\PYZus{}matplotlib\PYZus{}formats}
+        \PY{n}{set\PYZus{}matplotlib\PYZus{}formats}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savefig.dpi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{75}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.autolayout}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{False}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{6}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{18}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.titlesize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{20}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{16}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.linewidth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{2.0}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.markersize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{6}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{14}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.numpoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.fancybox}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.shadow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text.usetex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{serif}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cm}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text.latex.preamble}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{usepackage}\PY{l+s+si}{\PYZob{}subdepth\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{usepackage}\PY{l+s+si}{\PYZob{}type1cm\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \section{Question 1}\label{question-1}
+
+\subsection{Part A}\label{part-a}
+
+\begin{itemize}
+\tightlist
+\item
+  Generate a vector of 41 values from 0 to 20 and obtain a vector of
+  \(J_{1}(x)\) values.
+\item
+  To plot \(J_{1}(x)\) using inbuilt function 'jv'.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{x} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{)}
+        \PY{n}{J1} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{jv}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Plotting original function for J1(x)}
+        \PY{n}{fig1} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ax1} \PY{o}{=} \PY{n}{fig1}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}increasing the no\PYZus{}of points to get smooth graph}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{)}\PY{p}{,}\PY{n}{sp}\PY{o}{.}\PY{n}{jv}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}J\PYZus{}}\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{(x)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 1 : Plot of \PYZdl{}J\PYZus{}}\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{(x)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}J\PYZus{}}\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{(x)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+        \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure1.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Part B}\label{part-b}
+
+\begin{itemize}
+\item
+  For different \(x_{0}\) = 0.5,1,....18. extract the subvectors of
+  \(x\) and \(J_{1}(x)\) that correspond to \(x\) \(\geq\) \(x_{0}\).
+\item
+  For each \(x_{0}\), construct the matrix corresponding to Eq(3) and
+  obtain the best fit A and B.
+\item
+  Obtain the \(\phi\) corresponding to the Eq(3) and using Eq(5)
+  calculate the \(\nu\) from Eq(6)
+\item
+  To Obtain best \(x_{0}\) after which the model fits perfectly and
+  hence predict the \(\nu\) for each \(x_{0}\) for models used in Eq(3).
+  This is to verify that predicted model fits well for large \(x\) only
+\item
+  We use Model A as..
+\end{itemize}
+
+\begin{equation}
+   A\cos(x_{i})+B\sin(x_{i}) \approx J_{1}(x_{i})
+   \end{equation}
+
+\begin{equation}
+   \phi = \cos^{-1}(\frac{A}{\sqrt{A^2+B^2}})
+   \end{equation}
+
+\begin{equation}
+   \\ \phi = \frac{\nu\pi}{2}+\frac{\pi}{4}
+   \end{equation}
+
+\begin{equation}
+   \\ \nu = \frac{2}{\pi}(\phi - \frac{\pi}{4})
+   \end{equation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} function to calculate model A and model B}
+        \PY{k}{def} \PY{n+nf}{modelA}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{(}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{modelB}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return}\PY{p}{(}\PY{p}{(}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{n}{sqrt}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{p}{(}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{n}{sqrt}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}function to create Matrix for finding the Best fit using lstsq}
+        \PY{c+c1}{\PYZsh{} with no\PYZus{}of rows, columns by default 2 and vector x as arguments}
+        \PY{k}{def} \PY{n+nf}{createAmatrix}\PY{p}{(}\PY{n}{nrow}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{model}\PY{p}{)}\PY{p}{:}
+            \PY{n}{A} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{nrow}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} allocate space for A}
+            \PY{n}{A}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{A}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{k}{return} \PY{n}{A}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Function to extract the indexes of x greater than each value present }
+        \PY{c+c1}{\PYZsh{} in x0 vector, so basically indexes is 2\PYZhy{}D List.}
+        \PY{c+c1}{\PYZsh{} Arguments: Vector x and Vector x0}
+        \PY{k}{def} \PY{n+nf}{extract\PYZus{}subvectors}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{)}\PY{p}{:}
+            \PY{n}{indexes} \PY{o}{=} \PY{p}{[}\PY{n}{where}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZgt{}}\PY{n}{k}\PY{p}{)} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{x0}\PY{p}{]}
+            \PY{k}{return} \PY{n}{indexes}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Function to compute function back from Matrix and Coefficients A and B}
+        \PY{k}{def} \PY{n+nf}{computeFunction}\PY{p}{(}\PY{n}{M}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{M}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Function to calculate the \PYZsq{}nu\PYZsq{} for specified model and epsilon value}
+        \PY{c+c1}{\PYZsh{} Takes arguments : vector x,x0 and eps : amount of noise added to output}
+        \PY{c+c1}{\PYZsh{} model: It is a function which returns either model A or B}
+        \PY{k}{def} \PY{n+nf}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{eps}\PY{p}{,}\PY{n}{model}\PY{p}{)}\PY{p}{:}
+            \PY{n}{indexes} \PY{o}{=} \PY{n}{extract\PYZus{}subvectors}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}Data to fit for given x}
+            \PY{n}{J1} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{jv}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+            \PY{n}{M} \PY{o}{=} \PY{p}{[}\PY{p}{]}         \PY{c+c1}{\PYZsh{}Matrix is 3\PYZhy{}D list stores Matrix for each x0}
+            \PY{n}{c} \PY{o}{=} \PY{p}{[}\PY{p}{]}         \PY{c+c1}{\PYZsh{}List that stores Model Parameter Vector for each x0}
+            \PY{n}{v} \PY{o}{=} \PY{p}{[}\PY{p}{]}         \PY{c+c1}{\PYZsh{}Vector of \PYZsq{}nu\PYZsq{} values for each x0}
+            \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{index} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{indexes}\PY{p}{)}\PY{p}{:}
+                \PY{n}{x\PYZus{}sub} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+                \PY{n}{J1\PYZus{}sub} \PY{o}{=} \PY{n}{J1}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{o}{+}\PY{n}{eps}\PY{o}{*}\PY{n}{randn}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}sub}\PY{p}{)}\PY{p}{)}
+                \PY{n}{M}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{createAmatrix}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}sub}\PY{p}{)}\PY{p}{,}\PY{n}{x\PYZus{}sub}\PY{p}{,}\PY{n}{model}\PY{p}{)}\PY{p}{)}
+                \PY{n}{c}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{lstsq}\PY{p}{(}\PY{n}{M}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{J1\PYZus{}sub}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}calculating phi from Eq(5)}
+                \PY{n}{phi} \PY{o}{=} \PY{n}{arccos}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{+}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}calculating \PYZsq{}nu\PYZsq{} from Eq(6)}
+                \PY{n}{v}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{+}\PY{n}{phi}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{c}\PY{p}{,}\PY{n}{v}\PY{p}{,}\PY{n}{M}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Function to calculate best x0}
+        \PY{c+c1}{\PYZsh{} i.e x values after which model fits well}
+        \PY{k}{def} \PY{n+nf}{find\PYZus{}Best\PYZus{}x0}\PY{p}{(}\PY{n}{array}\PY{p}{,}\PY{n}{value}\PY{p}{)}\PY{p}{:}
+            \PY{n}{idx} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{array}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{i}\PY{p}{:} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{array}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{value}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{idx}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{x0} \PY{o}{=} \PY{n}{arange}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{18.5}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Storing model A params \PYZsq{}A\PYZsq{} and \PYZsq{}B\PYZsq{} for each x0 in Eq(3)}
+        \PY{n}{coeff\PYZus{}ab\PYZus{}A} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{modelA}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Storing \PYZsq{}nu\PYZsq{} values for each x0 for model A}
+        \PY{n}{v\PYZus{}modelA} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{modelA}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Storing model A matrix for each x0}
+        \PY{n}{M\PYZus{}modelA} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{modelA}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Find best x0 which has \PYZsq{}nu\PYZsq{} close to 1 for model A}
+        \PY{n}{best\PYZus{}index\PYZus{}A} \PY{o}{=} \PY{n}{find\PYZus{}Best\PYZus{}x0}\PY{p}{(}\PY{n}{v\PYZus{}modelA}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best x0 : }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{ , Corresponding }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Nu}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ value: }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{\PYZpc{}} 
+              \PY{p}{(}\PY{n}{x0}\PY{p}{[}\PY{n}{best\PYZus{}index\PYZus{}A}\PY{p}{]}\PY{p}{,}\PY{n}{v\PYZus{}modelA}\PY{p}{[}\PY{n}{best\PYZus{}index\PYZus{}A}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Best x0 : 18 , Corresponding 'Nu' value: 0.990268
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}Plotting Best fit obtained using model A for J1(x)}
+         \PY{c+c1}{\PYZsh{} x0 = 18 and x0=6}
+         \PY{n}{xsub1} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{where}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZgt{}}\PY{n}{x0}\PY{p}{[}\PY{n}{best\PYZus{}index\PYZus{}A}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+         \PY{n}{xsub2} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{where}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZgt{}}\PY{n}{x0}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{]}  \PY{c+c1}{\PYZsh{} for x0 = 3}
+         \PY{n}{f\PYZus{}bestFitA} \PY{o}{=} \PY{n}{computeFunction}\PY{p}{(}\PY{n}{M\PYZus{}modelA}\PY{p}{[}\PY{n}{best\PYZus{}index\PYZus{}A}\PY{p}{]}\PY{p}{,}\PY{n}{coeff\PYZus{}ab\PYZus{}A}\PY{p}{[}\PY{n}{best\PYZus{}index\PYZus{}A}\PY{p}{]}\PY{p}{)}
+         \PY{n}{f\PYZus{}bestFitA2} \PY{o}{=} \PY{n}{computeFunction}\PY{p}{(}\PY{n}{M\PYZus{}modelA}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,}\PY{n}{coeff\PYZus{}ab\PYZus{}A}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xsub1}\PY{p}{,}\PY{n}{f\PYZus{}bestFitA}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{geq 18\PYZdl{}, Best Fit with modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xsub2}\PY{p}{,}\PY{n}{f\PYZus{}bestFitA2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{geq 3\PYZdl{}, Fit with modelA for small \PYZdl{}x\PYZus{}0\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig1}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}10}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}Plotting the \PYZsq{}nu\PYZsq{} estimated for each x0 for model A}
+         \PY{n}{fig2} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{fig2}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelA}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 2 : Plot of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{} Vs \PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure2.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results and Discussion :}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  We observe Figure 1 that there is a significant deviation in Fitted
+  model using Model A in Eq(3) for small values of \(x_0\) in this case
+  3.
+\item
+  Whereas for large \(x_0\) such as 18 we see that it fits perfectly
+  with the original function because our Model taken is valid or fits
+  perfectly for large \(x\) only. So it is evident from our observation.
+\item
+  We observe Figure 2 that the \(\nu\) estimated for Model A is close to
+  1 but varies a lot with x0 at small values compared to large values
+  since model A we predicted is approximated for large x and it does not
+  take into account of division by \(\sqrt{x}\) in the correct model of
+  \(J_{v}(x)\) given in Eq(2) for large \(x\).
+\item
+  We see that best \(x_{0}\) obtained is the largest value i.e 18
+  because the model we used fits well for large values of \(x\) so our
+  prediction is correct as we got best \(x_0\) as 18.
+\end{itemize}
+
+    \subsection{Part C}\label{part-c}
+
+\begin{itemize}
+\tightlist
+\item
+  We use different model called Model B to fit the data now given by ...
+\end{itemize}
+
+\begin{equation}
+   A\frac{\cos(x_{i})}{\sqrt{x_i}}+B\frac{\sin(x_{i})}{\sqrt{x_i}} \approx J_{1}(x_{i})
+   \end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  And to compare the fits obtained using Model A and Model B
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{coeff\PYZus{}ab\PYZus{}B} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{modelB}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{v\PYZus{}modelB} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{modelB}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{M\PYZus{}modelB} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{modelB}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{best\PYZus{}index\PYZus{}B} \PY{o}{=} \PY{n}{find\PYZus{}Best\PYZus{}x0}\PY{p}{(}\PY{n}{v\PYZus{}modelB}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best x0 : }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{ , Corresponding }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Nu}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ value: }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{\PYZpc{}}
+               \PY{p}{(}\PY{n}{x0}\PY{p}{[}\PY{n}{best\PYZus{}index\PYZus{}B}\PY{p}{]}\PY{p}{,}\PY{n}{v\PYZus{}modelB}\PY{p}{[}\PY{n}{best\PYZus{}index\PYZus{}B}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Best x0 : 18 , Corresponding 'Nu' value: 0.987848
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}Plotting Best fit obtained using model B for J1(x)}
+         \PY{c+c1}{\PYZsh{} x0 = 18 and x0=6}
+         \PY{n}{xsub21} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{where}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZgt{}}\PY{n}{x0}\PY{p}{[}\PY{n}{best\PYZus{}index\PYZus{}B}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+         \PY{n}{xsub22} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{where}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZgt{}}\PY{n}{x0}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{]}  \PY{c+c1}{\PYZsh{} for x0 = 3}
+         
+         \PY{n}{f\PYZus{}bestFitB} \PY{o}{=} \PY{n}{computeFunction}\PY{p}{(}\PY{n}{M\PYZus{}modelB}\PY{p}{[}\PY{n}{best\PYZus{}index\PYZus{}B}\PY{p}{]}\PY{p}{,}\PY{n}{coeff\PYZus{}ab\PYZus{}B}\PY{p}{[}\PY{n}{best\PYZus{}index\PYZus{}B}\PY{p}{]}\PY{p}{)}
+         \PY{n}{f\PYZus{}bestFitB2} \PY{o}{=} \PY{n}{computeFunction}\PY{p}{(}\PY{n}{M\PYZus{}modelB}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,}\PY{n}{coeff\PYZus{}ab\PYZus{}B}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xsub21}\PY{p}{,}\PY{n}{f\PYZus{}bestFitB}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{geq 18\PYZdl{}, Best Fit with modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xsub22}\PY{p}{,}\PY{n}{f\PYZus{}bestFitB2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{geq 3\PYZdl{}, Fit with modelB for small \PYZdl{}x\PYZus{}0\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig1}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}13}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}Plotting the \PYZsq{}nu\PYZsq{} estimated for each x0 for model B}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelB}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig2}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}14}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{Results and Discussion :}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  As we observe Figure 1 that for Model B for lesser values of \(x_0\)
+  itself it fits the original function well compared to model A.
+\item
+  Also in Figure 2 for Model B the \(\nu\) doesn't oscillate as much as
+  Model A for particular \(x_0\) and its closer to 1
+\item
+  Because in Model A we neglected the division by \(\sqrt{x}\) in the
+  correct model of \(J_{v}(x)\) given in Eq(2) for large \(x\). whereas
+  included in Model B in Eq(7)
+\item
+  So Model B fits more closer to true model of \(J_v(x)\) for large
+  \(x\) given in Eq(2) than Model A.Hence the difference.
+\end{itemize}
+
+    \subsection{Part D \& E}\label{part-d-e}
+
+\begin{itemize}
+\tightlist
+\item
+  To define \(\nu\) =calcnu(x,x0,'r',eps,model) which is already defined
+  above in the code in part 2.
+\item
+  To add noise using \(\epsilon*randn()\) where \(\epsilon\) is the percentage of the noise and randn() is inbuilt function from numpy
+\item
+  Observe the effect on the fit and Plot the fit for \(\epsilon = 0.01\)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} \PYZsq{}nu\PYZsq{} for model B when 1 \PYZpc{} noise is added to output for each x0}
+         \PY{n}{v\PYZus{}modelB\PYZus{}noise} \PY{o}{=} \PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{n}{modelB}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelB\PYZus{}noise}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01,modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig2}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}15}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{Results and Discussion :}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  As we observe the Figure 2 for Model B with \(1\%\) noise added to the
+  data,the fit oscillates more at large \(x_0\) compared to small values
+  of \(x_0\) and it varies a lot compared to Model A and B without
+  noise.
+\item
+  Because the no of points (sample size) used for fitting using Least Squares is less in this case i.e 41,so no of values more than $x_0$ will be less since range of $x$ is fixed,so when noise is added , due to less data there will be more variations whereas if more data is used for fitting then Average Noise \(\approx 0\) which is proved using Maximum Likelihood and CLT theorems in Probability,but intuitively we see that when more data is there effect of noise is less since noise follows a Gaussian distribution its average value is zero so that model fits approximately well. So because of less no of points the effect of noise is higher at large \(x_0\).
+\item
+  So effect of noise on the data decreases the quality of the fit and at
+  large \(x_0\) it varies more from correct value 1
+\end{itemize}
+
+    \subsection{Part F}\label{part-f}
+
+\begin{itemize}
+\tightlist
+\item
+  Varying the number of measurements (keeping the range of x the same)
+  with noise amount of \(\epsilon = 0.01\) for Model A and B ,plotting
+  it
+\item
+  To analyse the Plot and to discuss the effect of varying no of
+  measurements on both models.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}Different no of points with same x range}
+         \PY{n}{x2} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{x3} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Storing the \PYZsq{}nu\PYZsq{} for each x0 for different stepsizes}
+         \PY{n}{v\PYZus{}modelA\PYZus{}noise} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{n}{modelA}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{v\PYZus{}modelA21} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x2}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{n}{modelA}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{v\PYZus{}modelA31} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x3}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{n}{modelA}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{fig3} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax3} \PY{o}{=} \PY{n}{fig3}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax3}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelA\PYZus{}noise}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No of Points : \PYZdl{}41\PYZdl{}, \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01, modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax3}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelA21}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No of Points : \PYZdl{}10\PYZca{}}\PY{l+s+si}{\PYZob{}3\PYZcb{}}\PY{l+s+s2}{\PYZdl{}, \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01, modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax3}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelA31}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No of Points : \PYZdl{}10\PYZca{}}\PY{l+s+si}{\PYZob{}5\PYZcb{}}\PY{l+s+s2}{\PYZdl{}, \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01, modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax3}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 3 : Plot of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{} Vs \PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{} Varying No of points for Model A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure3.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{v\PYZus{}modelB21} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x2}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{n}{modelB}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{v\PYZus{}modelB31} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x3}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{n}{modelB}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{fig4} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax4} \PY{o}{=} \PY{n}{fig4}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 4 : Plot of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{} Vs \PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{} Varying No of points for Model B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure4.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+         \PY{n}{ax4}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelB\PYZus{}noise}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No of Points : \PYZdl{}41\PYZdl{}, \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01, modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax4}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelB21}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No of Points : \PYZdl{}10\PYZca{}}\PY{l+s+si}{\PYZob{}3\PYZcb{}}\PY{l+s+s2}{\PYZdl{}, \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01, modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax4}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelB31}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No of Points : \PYZdl{}10\PYZca{}}\PY{l+s+si}{\PYZob{}5\PYZcb{}}\PY{l+s+s2}{\PYZdl{}, \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01, modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{ax4}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results and Discussion :}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  As we observe in Figure 3 that when no of points increased from 41 to
+  \(10^3\) and higher the effect of noise fading out, Since there will
+  be more no of points greater than \(x_0\) compared to former case,the
+  effect of noise reduces.
+\item
+  Hence we see that there are more variations for sample size of 41
+  compared to \(10^3\) and \(10^5\)
+\item
+  Similarly in Figure 4 for model B,the effect of noise fades out as we
+  increase the no of points to higher values from 41.
+\item
+  So to conclude that's why we use very large dataset to fit models
+  because at large \(x_0\) there will still be large no of points
+  greater than \(x_0\) which is used to fit the model, so the effect of
+  noise is less which is proved using Probability theorems like Maximum
+  Likelihood function and randomness of noise with large no of points
+  averages out to zero , so we get good fit for large no of points!
+\end{itemize}
+
+    \subsection{Part G}\label{part-g}
+
+\begin{itemize}
+\tightlist
+\item
+  Discuss the effect of model accuracy, number of measurements, and the
+  effect of noise on the quality of Fit.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{eps1} \PY{o}{=} \PY{l+m+mf}{0.01}
+         \PY{n}{eps2} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{eps3} \PY{o}{=} \PY{l+m+mf}{0.0001}
+         
+         \PY{n}{no\PYZus{}points1} \PY{o}{=} \PY{l+m+mi}{41}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{n}{no\PYZus{}points1}\PY{p}{)}
+         
+         \PY{n}{v\PYZus{}modelA1} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{eps1}\PY{p}{,}\PY{n}{modelA}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{v\PYZus{}modelA2} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{eps2}\PY{p}{,}\PY{n}{modelA}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{v\PYZus{}modelA3} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{eps3}\PY{p}{,}\PY{n}{modelA}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{v\PYZus{}modelB1} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{eps1}\PY{p}{,}\PY{n}{modelB}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{v\PYZus{}modelB2} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{eps2}\PY{p}{,}\PY{n}{modelB}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{v\PYZus{}modelB3} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{eps3}\PY{p}{,}\PY{n}{modelB}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Model Accuracy :}\label{model-accuracy}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{}Plotting fit for \PYZsq{}v\PYZsq{} using Model A and Model B with noise}
+         \PY{n}{v\PYZus{}modelA4} \PY{o}{=} \PY{p}{(}\PY{n}{calcnu}\PY{p}{(}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{eps1}\PY{p}{,}\PY{n}{modelA}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{fig5} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax5} \PY{o}{=} \PY{n}{fig5}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax5}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelA4}
+                  \PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No of points : \PYZdl{}10\PYZca{}}\PY{l+s+si}{\PYZob{}6\PYZcb{}}\PY{l+s+s2}{\PYZdl{}, \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01,modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax5}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelA1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No of points : 41, \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01,modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax5}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelB1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No of points : 41, \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01,modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax5}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 5 : Plot of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{} Vs \PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{} ModelA Vs ModelB with noise}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure5.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Results and Discussion :}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  As we observe Figure 5,fit using Model B with datasize of 41 is more
+  accurate than model A with same no of points because our Correct model
+  for \(J_v(x)\) for large values of \(x\) is given in Eq(2).
+\item
+  If we observe that Model B is similar to true model whereas Model A
+  does not take into account of division by \(\sqrt{x}\) as in the
+  correct model of \(J_{v}(x)\) given in Eq(2) for large \(x\).
+\item
+  So Model B is accurate than Model A
+\item
+  But as we see the same fit using Model A with a large datasize of
+  \(10^6\) is less oscillatory compared to Model B this is because of
+  large no of points taken so that noise effect is less.
+\item
+  So to conclude Model B is accurate than Model A when both are fitted
+  with same no of points otherwise its difficult to compare them!
+\end{itemize}
+
+    \paragraph{Effect of Noise on the quality of the fit for Model A
+:}\label{effect-of-noise-on-the-quality-of-the-fit-for-model-a}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}Plotting fit for \PYZsq{}v\PYZsq{} by varying noise level}
+         \PY{n}{fig6} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax6} \PY{o}{=} \PY{n}{fig6}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         
+         \PY{n}{ax6}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelA}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0,modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax6}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelA3}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.0001,modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax6}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelA1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01,modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{ax6}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 6 : Plot of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{} Vs \PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{} Effect of Noise on the fit for Model A}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure6.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Effect of Noise on the quality of the fit for Model
+B:}\label{effect-of-noise-on-the-quality-of-the-fit-for-model-b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{fig7} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax7} \PY{o}{=} \PY{n}{fig7}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         
+         \PY{n}{ax7}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelB}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0,modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax7}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelB3}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.0001,modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax7}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelB1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01,modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{ax7}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 7 : Plot of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{} Vs \PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{} Effect of Noise on the fit For Model B}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure7.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Effect Noise on the quality of the fit comparing both Models
+:}\label{effect-noise-on-the-quality-of-the-fit-comparing-both-models}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}Plotting fit for \PYZsq{}v\PYZsq{} by varying noise level}
+         \PY{n}{fig8} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax8} \PY{o}{=} \PY{n}{fig8}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax8}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelA1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01,modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax8}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelB1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.01,modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax8}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelA}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0,modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax8}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelB}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0,modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax8}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelA3}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.0001,modelA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax8}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{v\PYZus{}modelB3}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{epsilon\PYZdl{} = 0.0001,modelB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax8}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 8 : Effect of Noise on the fit with Model A and Model B together }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{nu\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure8.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results and Discussion :}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  As we observe figure 6,7,8 that the effect of noise make the fit more
+  oscillatory compared to without noise case at large \(x_0\) which is
+  understandable since when we add noise to data with less no of
+  points(sample size here we gave 41) the effect of it is higher at
+  large \(x_0\) since there will be lesser no of points after \(x_0\)
+  that we use it for fitting the model, so effect of noise is higher for
+  less data size whose derivation comes using \textbf {Maximum Likelihood and CLT theorems in Probability}
+  ,but intuitively we see that when more data is there effect of noise is less since noise follows a \textbf{Gaussian distribution} its average value is zero which is valid only when no of points is large since Central limit Theorem is valid only for large no of random variables i.e noise in this case,So when more no of points are there it follows a Standard Normal distribution according to CLT which has Mean = 0,So overall effect of noise is lesser so that model fits approximately well. Whereas in case of less no of points the effect of noise is higher at large \(x_0\).
+  \item
+  And the effect of noise is lesser for small values of \(x_0\) because
+  there'll be more x values greater than \(x_0\) comparitively than
+  large \(x_0\) so the effect is lesser.
+\item
+  Also we see that varying \(\epsilon\) also affects the quality of
+  fit,from observation more the \(\epsilon\) more the variations we get!
+\item
+  And as we seen in part F that when we increase the no of points the
+  effect of noise comparatively lesser at large \(x_0\) since we'll have
+  more \(x\) values greater than \(x_0\), so we get to more data to
+  fit.So it reduces the effect of noise as we observe the plots
+\item
+  So for both Model A and B the addition of noise reduces the quality of
+  the fit significantly at large values of \(x_0\)
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

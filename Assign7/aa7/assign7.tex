@@ -1,0 +1,1177 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{assign7}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Abstract
+
+ This report will discuss about how to analyse "Linear Time-invariant"
+\textbf{LTI} Systems with numerical tools in Python.It uses Laplace
+transform to solve the differential equations of the system rather than
+time domain analysis,which is very effective as Laplace transform
+changes the problem into polynomial equations which are otherwise
+differential equations in time domain.So it focuses on how to analyse
+the \(LTI\) system when governing system equations with proper initial
+conditions given using Laplace transform and convolution.We later
+discuss about steady state solutions of electrical circuits and analyse
+their response to step inputs.
+
+    \section{Introduction}\label{introduction}
+
+\begin{itemize}
+\item
+  We analyse the infamous LTI systems in continuous time using Laplace
+  transform to find the solutions to the equations governing the system
+  with the help of python tools such as Signal toolbox\\
+\item
+  \(system.impulse \to\) Computes the impulse response of the transfer
+  function
+\item
+  \(sp.lsim \to\) This simulates \(y=u(t)*h(t)\) taking \(u(t)\) and
+  \(\mathcal{H(s)}\) as arguments
+\item
+  \(sp.lti \to\) defines a transfer function from polynomial
+  coefficients of numerator and denominator as inputs.
+\item
+  \$bode() \to \$ It's used to find the magnitude and phase response of
+  transfer function
+\item
+  We use following method to find the Laplace transform of a time domain
+  signal, here we use these methods to find laplace of system governing
+  differential coefficients
+\item
+  Some of the equations to follow while finding laplace transform
+\end{itemize}
+
+\begin{equation}
+    \mathscr{L}\{x(t)\} \to \mathcal{X(s)}
+\end{equation}
+
+\begin{equation}
+    \mathscr{L}\{\frac{dx(t)}{dt}\} \to \mathcal{sX(s)-x(0^{-})}
+\end{equation}
+
+\begin{equation}
+    \mathscr{L}\{\frac{d^{2}x(t)}{dt^{2}}\} \to \mathcal{s^{2}X(s)-sx(0^{-})-\dot x(0^{-})}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  Combining the above equations above, we find the laplace transform of
+  a differential equation and analyse them.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} load libraries and set plot parameters}
+         \PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{o}{*}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{k+kn}{from}  \PY{n+nn}{tabulate} \PY{k}{import} \PY{n}{tabulate}
+         \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{signal} \PY{k}{as} \PY{n+nn}{sp}
+         
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{set\PYZus{}matplotlib\PYZus{}formats}
+         \PY{n}{set\PYZus{}matplotlib\PYZus{}formats}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savefig.dpi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{75}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.autolayout}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{False}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{9}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{18}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.titlesize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{20}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{16}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.linewidth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{2.0}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.markersize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{6}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{14}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.numpoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.fancybox}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.shadow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text.usetex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{serif}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cm}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text.latex.preamble}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{usepackage}\PY{l+s+si}{\PYZob{}subdepth\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{usepackage}\PY{l+s+si}{\PYZob{}type1cm\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \subsection{Question 1 \& 2:}\label{question-1-2}
+
+\begin{itemize}
+\tightlist
+\item
+  To solve for the time repsonse of the spring mass system,whose driving
+  force varies as \(f(t)\) given as
+\end{itemize}
+
+\begin{equation}
+f(t) = \cos(1.5t) e^{-0.5t}u_0(t)
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  Laplace transform of \(f(t)\) using equations (1),(2) \& (3) given
+  above
+\end{itemize}
+
+\begin{equation}
+    \mathcal{F(s)} = \frac{s+0.5}{(s+0.5)^2 + 2.25}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  Spring satisfies the below equation with \(x(0)\) \(=\) \(0\) and
+  \(\dot x(0)\) \(=\) \(0\) for \$ 0 \leq t \leq 50s\$.
+\end{itemize}
+
+\begin{equation}
+\ddot x + 2.25x = f(t)
+\end{equation}
+
+\begin{itemize}
+\item
+  So we take laplace transform of the equation given above with given
+  intial conditions and in generalised form considering
+  \$w\_\{0\}\^{}\{2\} = 2.25 \$ in the differential equation above,
+  natural frequency of the system is \(w_0 = 1.5 rads^{-1}\),and decay
+  factor of \(f(t)\) as \(d = 0.5\) and frequency of the input as
+  \(w = 1.5 rads^{-1}\) in this question.
+\item
+  In general we get
+\end{itemize}
+
+\begin{equation}
+    \mathcal{X(s)} = \frac{s+d}{((s+d)^2 + w^2)(s^2 + w_{0}^{2})}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  In question 1 we get with given values and \(d = 0.5\)
+\end{itemize}
+
+\begin{equation}
+    \mathcal{X(s)} = \frac{s+0.5}{((s+0.5)^2 + 2.25)(s^2 + 2.25)}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  Solve the above problem with much smaller decay with same initial
+  conditions, now \(f(t)\) is as follows
+\end{itemize}
+
+\begin{equation}
+f(t) = \cos(1.5t) e^{-0.05t}u_0(t)
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  So in question 2 we get with \(d = 0.05\)
+\end{itemize}
+
+\begin{equation}
+    \mathcal{X(s)} = \frac{s+0.05}{((s+0.05)^2 + 2.25)(s^2 + 2.25)}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  To solve for \(x(t)\) displacement for each of the cases using Laplace
+  transform with python tools such as \(system.impulse\) and plot them.
+\item
+  To analyse the plots obtained and discuss the effect of decay on
+  \(x(t)\).
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{function to solve for x(t)}
+         \PY{l+s+sd}{Arguments : x0    \PYZhy{} x(0)}
+         \PY{l+s+sd}{            x0dot \PYZhy{} derivative of x at x=0}
+         \PY{l+s+sd}{            decay \PYZhy{} decay factor}
+         \PY{l+s+sd}{            freq  \PYZhy{} frequency at which spring operates(resonant case)}
+         \PY{l+s+sd}{Returns   : t and x(t)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{k}{def} \PY{n+nf}{laplaceSolver}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{x0dot}\PY{p}{,}\PY{n}{decay}\PY{p}{,}\PY{n}{freq}\PY{p}{)}\PY{p}{:}    
+             \PY{n}{Xnum} \PY{o}{=} \PY{n}{poly1d}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{decay}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{polymul}\PY{p}{(}\PY{p}{[}\PY{n}{x0}\PY{p}{,}\PY{n}{x0dot}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{decay}\PY{p}{,}\PY{p}{(}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{freq}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{+}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{decay}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{n}{Xden} \PY{o}{=} \PY{n}{polymul}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{freq}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{decay}\PY{p}{,}\PY{p}{(}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{freq}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{+}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{decay}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}Computes the impulse response of the transfer function}
+             \PY{n}{Xs} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{lti}\PY{p}{(}\PY{n}{Xnum}\PY{p}{,}\PY{n}{Xden}\PY{p}{)}
+             \PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{sp}\PY{o}{.}\PY{n}{impulse}\PY{p}{(}\PY{n}{Xs}\PY{p}{,}\PY{k+kc}{None}\PY{p}{,}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{t}\PY{p}{,}\PY{n}{x}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} solving for two cases with decay of 0.5 and 0.05}
+         
+         \PY{n}{t1}\PY{p}{,}\PY{n}{x1} \PY{o}{=} \PY{n}{laplaceSolver}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{1.5}\PY{p}{)}
+         \PY{n}{t2}\PY{p}{,}\PY{n}{x2} \PY{o}{=} \PY{n}{laplaceSolver}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.05}\PY{p}{,}\PY{l+m+mf}{1.5}\PY{p}{)}
+         \PY{n}{t3}\PY{p}{,}\PY{n}{x3} \PY{o}{=} \PY{n}{laplaceSolver}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.005}\PY{p}{,}\PY{l+m+mf}{1.5}\PY{p}{)}
+         \PY{n}{t4}\PY{p}{,}\PY{n}{x4} \PY{o}{=} \PY{n}{laplaceSolver}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mf}{1.5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{}plot of x(t) with decay of 0.5}
+         
+         \PY{n}{fig1a} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax1a} \PY{o}{=} \PY{n}{fig1a}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax1a}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t1}\PY{p}{,}\PY{n}{x1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{decay = 0.5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax1a}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 1a: \PYZdl{}x(t)\PYZdl{} of spring system}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}t }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x(t) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure1a.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}plot of x(t) with decay values of 0.5 and 0.05}
+         \PY{n}{fig1} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig1}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t1}\PY{p}{,}\PY{n}{x1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{decay = 0.5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t2}\PY{p}{,}\PY{n}{x2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{decay = 0.05}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t3}\PY{p}{,}\PY{n}{x3}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{decay = 0.005}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t4}\PY{p}{,}\PY{n}{x4}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{decay = 5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 1b: \PYZdl{}x(t)\PYZdl{} of spring system as function of decay value of \PYZdl{}f(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}t }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x(t) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure1b.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results and Discussion :}\label{results-and-discussion}
+
+\begin{itemize}
+\item
+  As we observe the plot that for smaller decay of \(e^{-0.05t}\) and
+  \(e^{-0.005t}\),etc.\(x(t)\) has large amplitude and its growing as
+  time increases and oscillates.
+\item
+  Whereas the for higher decay values the amplitude of \(x(t)\) is very
+  small but since its second order system it oscillates.
+\item
+  And If we observe the Figure 1a, amplitude growth stopped and settles
+  quicker than for smaller decay values whereas for small decay values
+  the \(x(t)\) amplitude settling time is larger because as given below:
+\item
+  Our input \(f(t)\) to the system has natural frequency that is
+  \(w=w_0\), so its a resonant case,so the solution of differentail
+  equation for sinusoidal inputs from observing the plot can be of the
+  form \(te^{-dt}\cos (w_0 t)\) so for smaller decay values the graph
+  takes more time neutralise the growing effect of \(t\) in the
+  solution.
+\item
+  So to conclude for small decay , \(x(t)\) has large amplitude and the
+  time required for it settle or saturate to a certain maximum amplitude
+  is higher compared to large decay case
+\end{itemize}
+
+    \subsection{Question 3:}\label{question-3}
+
+\begin{itemize}
+\item
+  In an LTI system. \(f(t)\) is the input, and \(x(t)\) is the output.
+\item
+  To Obtain the system transfer function
+  \(\frac{\mathcal {X(s)}}{ \mathcal {F(s)}}\)
+\item
+  we use \(signal.lsim\) to simulate the problem.
+\item
+  Here we try to plot the system response for different values of
+  excitation frequecies i.e input frequencies with natural frequency of
+  the system as \(w_0 = 1.5 rads^{-1}\)
+\item
+  So using a for loop, we sweep the frequency \(w\) of the \(f(t)\) from
+  \(1.4\) to \(1.6\) in steps of \(0.05\) keeping the exponent as
+  \(e^{−0.05t}\) that is \(d=0.05\) and plot the resulting responses.
+\item
+  So with above conditions laplace transform of \(x(t)\) is
+\end{itemize}
+
+\begin{equation}
+    \mathcal{X(s)} = \frac{s+0.05}{((s+0.05)^2 + w^2)(s^2 + 2.25)}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  So we transfer function of the system is
+\end{itemize}
+
+\begin{equation}
+    \mathcal{H(s)} = \frac{s+0.05}{((s+0.05)^2 + w^2)(s^2 + 2.25)}
+\end{equation}
+
+\begin{equation}
+    \mathcal{H(s)} = \frac{s+0.05}{((s+0.05)^2 + w^2)(s^2 + 2.25)}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  Using this we analyse the results.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{function to return f(t) for various parameters}
+         \PY{l+s+sd}{Arguments : t     \PYZhy{} time}
+         \PY{l+s+sd}{            freq  \PYZhy{} frequency at system is excited}
+         \PY{l+s+sd}{            decay \PYZhy{} decay factor}
+         \PY{l+s+sd}{Returns   : t and x(t)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{freq}\PY{p}{,}\PY{n}{decay}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{cos}\PY{p}{(}\PY{n}{freq}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{o}{*}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{decay}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{function to solve for Transfer function H(s)}
+         \PY{l+s+sd}{Arguments : x0    \PYZhy{} x(0)}
+         \PY{l+s+sd}{            x0dot \PYZhy{} derivative of x at x=0}
+         \PY{l+s+sd}{            decay \PYZhy{} decay factor}
+         \PY{l+s+sd}{            freq  \PYZhy{} frequency at which system is excited}
+         \PY{l+s+sd}{Returns   : Hs    \PYZhy{} transfer function of the system}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         \PY{k}{def} \PY{n+nf}{getTransferfunc}\PY{p}{(}\PY{n}{x0}\PY{p}{,}\PY{n}{x0dot}\PY{p}{,}\PY{n}{decay}\PY{p}{,}\PY{n}{freq}\PY{p}{)}\PY{p}{:}    
+             
+             \PY{c+c1}{\PYZsh{}natural frequency is 1.5rad/s}
+             \PY{n}{nat\PYZus{}freq} \PY{o}{=} \PY{l+m+mf}{1.5}
+             \PY{n}{Hnum} \PY{o}{=} \PY{n}{poly1d}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{decay}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{polymul}\PY{p}{(}\PY{p}{[}\PY{n}{x0}\PY{p}{,}\PY{n}{x0dot}\PY{p}{]}\PY{p}{,}
+                                              \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{decay}\PY{p}{,}\PY{p}{(}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{freq}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{+}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{decay}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{poly1d}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{Hden} \PY{o}{=} \PY{n}{polymul}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{nat\PYZus{}freq}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{decay}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}Computes the impulse response of the transfer function}
+             \PY{n}{Hs} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{lti}\PY{p}{(}\PY{n}{Hnum}\PY{p}{,}\PY{n}{Hden}\PY{p}{)}
+             \PY{k}{return} \PY{n}{Hs}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{}Plot of x(t) with different input frequencies}
+         \PY{n}{fig2} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{fig2}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 2: \PYZdl{}x(t)\PYZdl{} of spring system with varying Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}For loop  to plot x(t) for different values of freq}
+         \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{arange}\PY{p}{(}\PY{l+m+mf}{1.4}\PY{p}{,}\PY{l+m+mf}{1.6}\PY{p}{,}\PY{l+m+mf}{0.05}\PY{p}{)}\PY{p}{:}
+             \PY{n}{decay} \PY{o}{=} \PY{l+m+mf}{0.05}
+             \PY{n}{H} \PY{o}{=} \PY{n}{getTransferfunc}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{decay}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+             \PY{n}{t} \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{)}
+             \PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{svec}\PY{o}{=}\PY{n}{sp}\PY{o}{.}\PY{n}{lsim}\PY{p}{(}\PY{n}{H}\PY{p}{,}\PY{n}{f}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{decay}\PY{p}{)}\PY{p}{,}\PY{n}{t}\PY{p}{)}
+             \PY{n}{legnd} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}w\PYZdl{} = }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{ rad/s}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{w}\PY{p}{)} 
+             \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{n}{legnd}\PY{p}{)} 
+             \PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+             
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}t }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x(t) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure2.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{}Calculating bode plot for transfer function H}
+         \PY{n}{w1}\PY{p}{,}\PY{n}{mag}\PY{p}{,}\PY{n}{phi}\PY{o}{=}\PY{n}{H}\PY{o}{.}\PY{n}{bode}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Plot of x(t) with different input frequencies}
+         \PY{n}{fig3} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax3} \PY{o}{=} \PY{n}{fig3}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 3: \PYZdl{}|H(j}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega)|\PYZdl{} \PYZhy{} Bode plot of the transfer function}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{ax3}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{w1}\PY{p}{,}\PY{n}{mag}\PY{p}{)} 
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{} 20}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{log|H(jw)| }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure3.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results and Discussion:}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  As we observe the magnitude response of the transfer function of the
+  system in plot above, we observe that it has sharp peak for frequency
+  \(\omega = 1.5 rads^{-1}\) because it's the case of resonance as
+  driving frequency and resonant frequency matches.So the gain increases
+  sharply at that frequency and decreases narrowly for closer
+  frequencies.That's why we see large amplitude for \(x(t)\) when
+  \(\omega = 1.5\).
+\item
+  As we observe figure 2 that,when we force (we are basically exciting
+  the spring mass system with \(f(t)\)) the system with \(w \neq w_0\)
+  where \(w_0 = 1.5\) and \(w \approx w_0\) i.e around 1.5
+  \(rads^{-1}\),since intially the system is at rest,so when f(t) is
+  forced upon it,they are in phase,so constructive superposition occurs
+  so the amplitude of \(x(t)\) increases in same fashion for \(w\) very
+  close to \(w_0\) at starting , after that since the forced and natural
+  frequency are not same,it is detuned so amplitude after peak amplitude
+  starts falling slightly but at steady state all forced response dies
+  out,so basically \(x(t)\) will vary only with natural mode since
+  forced response died out eventually.
+\item
+  Whereas for \(w=w_0\) case resonant occurs,so system and forcing input
+  have same frequency so,the forced response adds up to natural response
+  basically 'tuned',so the amplitude is very high in steady state.
+\end{itemize}
+
+    \subsection{Question 4:}\label{question-4}
+
+\begin{itemize}
+\item
+  To Solve for a coupled spring problem:
+\item
+  System satisfies the below equation with \(x(0) = 1\) and
+  \(\dot x(0) = y(0) = \dot y(0) = 0\).
+\end{itemize}
+
+\begin{equation}
+\ddot x + (x-y) = 0
+\end{equation}
+
+\begin{equation}
+\ddot y + 2(y-x)= 0
+\end{equation}
+
+\begin{itemize}
+\item
+  Solve for \(x(t)\) and \(y(t)\) for \$ 0 \leq t \leq 20s\$ by taking
+  laplace transform of both equations given above and solve for
+  \(\mathcal {X(s)}\) and \(\mathcal{Y(s)}\) using substitution method.
+\item
+  Now from \(\mathcal {X(s)}\) and \(\mathcal{Y(s)}\) find \(x(t)\) and
+  \(y(t)\) using \(system.impulse\).
+\item
+  Plot \(x(t)\) and \(y(t)\) in the same graph and analyse them
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{function to solve for Transfer function H(s)}
+         \PY{l+s+sd}{Arguments : num\PYZus{}coeff   \PYZhy{} array of coefficients of denominator polynomial}
+         \PY{l+s+sd}{            den\PYZus{}coeff   \PYZhy{} array of coefficients of denominator polynomial}
+         \PY{l+s+sd}{Returns   : t,h         \PYZhy{} time and response of the system}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}   
+         
+         \PY{k}{def} \PY{n+nf}{coupledSysSolver}\PY{p}{(}\PY{n}{num\PYZus{}coeff}\PY{p}{,}\PY{n}{den\PYZus{}coeff}\PY{p}{)}\PY{p}{:}
+             \PY{n}{H\PYZus{}num} \PY{o}{=} \PY{n}{poly1d}\PY{p}{(}\PY{n}{num\PYZus{}coeff}\PY{p}{)}
+             \PY{n}{H\PYZus{}den} \PY{o}{=} \PY{n}{poly1d}\PY{p}{(}\PY{n}{den\PYZus{}coeff}\PY{p}{)}
+             
+             \PY{n}{Hs} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{lti}\PY{p}{(}\PY{n}{H\PYZus{}num}\PY{p}{,}\PY{n}{H\PYZus{}den}\PY{p}{)}
+             \PY{n}{t}\PY{p}{,}\PY{n}{h}\PY{o}{=}\PY{n}{sp}\PY{o}{.}\PY{n}{impulse}\PY{p}{(}\PY{n}{Hs}\PY{p}{,}\PY{k+kc}{None}\PY{p}{,}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{t}\PY{p}{,}\PY{n}{h}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}find x and y using above function}
+         \PY{n}{t1}\PY{p}{,}\PY{n}{x}  \PY{o}{=} \PY{n}{coupledSysSolver}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{t2}\PY{p}{,}\PY{n}{y} \PY{o}{=} \PY{n}{coupledSysSolver}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}plot x(t) and y(t)}
+         \PY{n}{fig4} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax4} \PY{o}{=} \PY{n}{fig4}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax4}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t1}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax4}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t2}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax4}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 4: Time evolution of \PYZdl{}x(t)\PYZdl{} and \PYZdl{}y(t)\PYZdl{} for \PYZdl{}0 }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{leq t }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{leq 20\PYZdl{}. of Coupled spring system }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}t }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x(t),y(t) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure4.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results and Discussion:}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  As we observe figure 4 that, the \(x(t)\) and \(y(t)\) obtained
+  satisfies the given initial conditions,and oscillating sinusoidally
+  with \(180^{o}\) out of phase
+\end{itemize}
+
+    \subsection{Question 5:}\label{question-5}
+
+\begin{itemize}
+\item
+  To Obtain the magnitude and phase response of the Steady State
+  Transfer function of the following two-port network
+\item
+  Transfer function of the RLC network from input to voltage at
+  capacitor in general for given Network is
+\end{itemize}
+
+\begin{equation}
+    \frac{\mathcal{V_{0}(s)}}{\mathcal{V_{i}(s)}} = \mathcal{H(s)} = \frac{1}{s^{2}LC + sRC + 1}
+\end{equation}
+
+\begin{itemize}
+\item
+  For the given values of \$ R = 100 \Omega\(,\) L = 1\mu H\(,\)C=
+  1\mu F\$
+\item
+  We get
+\end{itemize}
+
+\begin{equation}
+    \mathcal{H(s)} = \frac{1}{s^{2}10^{-12} + s10^{-4} + 1}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  can be written as
+\end{itemize}
+
+\begin{equation}
+    \mathcal{H(s)} = \frac{1}{(1 + \frac{s}{10^{8}})(1 + \frac{s}{10^{4}})}
+\end{equation}
+
+\begin{itemize}
+\item
+  So system has poles on left half s plane, that too real poles with \$
+  s = -10\textsuperscript{4,-10}8 rads\^{}\{-1\}\$, we will observe the
+  effect of poles on magnitude and phase response by analysing plots of
+  them
+\item
+  Magnitude Response is \(|H(s)|\) evaluated at any point on imaginary
+  axis so basically \(|H(j\omega)|\)
+\item
+  Phase response is \(\angle H(j\omega)\)
+\item
+  Using \(\mathcal{H(s)}\) we calculate magnitude and phase response of
+  it using \(Bode()\) and plot them and analyse.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{function to solve for Transfer function H(s)}
+         \PY{l+s+sd}{Arguments : H         \PYZhy{} Transfer function.}
+         \PY{l+s+sd}{Returns   : w,mag,phi}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}   
+         
+         \PY{k}{def} \PY{n+nf}{CalcMagPhase}\PY{p}{(}\PY{n}{H}\PY{p}{)}\PY{p}{:}
+             \PY{n}{w}\PY{p}{,}\PY{n}{mag}\PY{p}{,}\PY{n}{phi}\PY{o}{=}\PY{n}{H}\PY{o}{.}\PY{n}{bode}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{w}\PY{p}{,}\PY{n}{mag}\PY{p}{,}\PY{n}{phi}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{function to solve given RLC network for any R,L,C values}
+         \PY{l+s+sd}{Returns   : w,mag,phi,Hs}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}  
+         
+         \PY{k}{def} \PY{n+nf}{RLCnetwork}\PY{p}{(}\PY{n}{R}\PY{p}{,}\PY{n}{C}\PY{p}{,}\PY{n}{L}\PY{p}{)}\PY{p}{:}
+             \PY{n}{Hnum} \PY{o}{=} \PY{n}{poly1d}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{Hden} \PY{o}{=} \PY{n}{poly1d}\PY{p}{(}\PY{p}{[}\PY{n}{L}\PY{o}{*}\PY{n}{C}\PY{p}{,}\PY{n}{R}\PY{o}{*}\PY{n}{C}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}Computes the impulse response of the transfer function}
+             \PY{n}{Hs} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{lti}\PY{p}{(}\PY{n}{Hnum}\PY{p}{,}\PY{n}{Hden}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}Calculates magnitude and phase response}
+             \PY{n}{w}\PY{p}{,}\PY{n}{mag}\PY{p}{,}\PY{n}{phi} \PY{o}{=} \PY{n}{CalcMagPhase}\PY{p}{(}\PY{n}{Hs}\PY{p}{)}
+             \PY{k}{return} \PY{n}{w}\PY{p}{,}\PY{n}{mag}\PY{p}{,}\PY{n}{phi}\PY{p}{,}\PY{n}{Hs}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{}Finds magnitude and phase response of Transfer function}
+         \PY{n}{R} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{L} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}6}
+         \PY{n}{C} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}6}
+         \PY{n}{w}\PY{p}{,}\PY{n}{mag}\PY{p}{,}\PY{n}{phi}\PY{p}{,}\PY{n}{Hrlc} \PY{o}{=} \PY{n}{RLCnetwork}\PY{p}{(}\PY{n}{R}\PY{p}{,}\PY{n}{L}\PY{p}{,}\PY{n}{C}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}plot Magnitude Response }
+         \PY{n}{fig5} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax5} \PY{o}{=} \PY{n}{fig5}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax5}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{mag}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}Mag Response\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} ax5.semilogx(w,phi,\PYZsq{}r\PYZsq{},label=\PYZdq{}\PYZdl{}Phase Response\PYZdl{}\PYZdq{})}
+         \PY{n}{ax5}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 5: Magnitude Response of \PYZdl{}H(jw)\PYZdl{} of Series RLC network}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{} }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{log w }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{} 20}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{log|H(jw)|  }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure5.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results and Discussion:}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  As we observe figure 5 that, its a low pass filter with dominant pole
+  at \(\omega = 10^4 rads^{-1}\) and since the Gain i.e \(|H(j\omega)|\)
+  at smaller frequencies is larger and as the frequency increases the
+  gain reduces 20dB/dec after the dominant pole which is located
+  \(10^4 \leq \omega \leq 10^8\) after that it reduces more steeply with
+  40dB/dec.
+\item
+  Since its a second order system it has two poles,as we observe from
+  the plot that it has 2 poles at \$ \omega =
+  -10\textsuperscript{4,-10}8 rads\^{}\{-1\}\$
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{}Plot of phase response}
+         \PY{n}{fig6} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax6} \PY{o}{=} \PY{n}{fig6}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax6}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{phi}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}Phase Response\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax6}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 6: phase response of the \PYZdl{}H(jw)\PYZdl{} of Series RLC networkfor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{} }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{log w }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{} }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{angle H(j}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega)\PYZdl{} \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure6.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results and Discussion:}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  As we observe figure 6 that,\(0 \leq \angle H(j\omega) < 180^{o}\).
+\item
+  So the system is unconditionally stable since phase does not go to
+  \(180^{o}\).
+\item
+  Since each pole adds \(90^{o}\) to the phase its clear that the system
+  is second order because it has two poles hence phase go till
+  \(180^{o}\).
+\item
+  And since all the poles are in left half s plane RLC Network given is
+  unconditionally stable for given values.
+\end{itemize}
+
+    \subsection{Question 6:}\label{question-6}
+
+\begin{itemize}
+\tightlist
+\item
+  Consider the problem in \(Q5\).If the input signal \(v_i(t)\) is given
+  by
+\end{itemize}
+
+\begin{equation}
+ v_i(t) = \cos (10^{3}t) u(t) − \cos (10^{6}t) u(t)
+ \end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  Obtain the output voltage \(v_0(t)\) using the transfer function of
+  the system obtained.
+\item
+  To explain the output signal for \$ 0 \textless{} t \textless{} 30
+  \mu s \$
+\item
+  And explain the long term response on the \(msec\) timescale
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{function to return vi(t)}
+         \PY{l+s+sd}{arguments : t   \PYZhy{} time variable}
+         \PY{l+s+sd}{            w1  \PYZhy{} frequency of 1st cos term}
+         \PY{l+s+sd}{            w2  \PYZhy{} frequency of 2nd cos term}
+         \PY{l+s+sd}{Returns   : vi(t)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}  
+         
+         \PY{k}{def} \PY{n+nf}{vi}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w1}\PY{p}{,}\PY{n}{w2}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{cos}\PY{p}{(}\PY{n}{w1}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{cos}\PY{p}{(}\PY{n}{w2}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{}Defines time from 0 to 90 msec}
+         \PY{n}{t}  \PY{o}{=} \PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{90}\PY{o}{*}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}finding vi(t) using above function}
+         \PY{n}{Vi} \PY{o}{=} \PY{n}{vi}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}finds Vo(t) using lsim}
+         \PY{n}{t}\PY{p}{,}\PY{n}{Vo}\PY{p}{,}\PY{n}{svec}\PY{o}{=}\PY{n}{sp}\PY{o}{.}\PY{n}{lsim}\PY{p}{(}\PY{n}{Hrlc}\PY{p}{,}\PY{n}{Vi}\PY{p}{,}\PY{n}{t}\PY{p}{)}
+         \PY{n}{vo\PYZus{}ideal} \PY{o}{=} \PY{n}{cos}\PY{p}{(}\PY{l+m+mf}{1e3}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{}plot of Vo(t) for large time i.e at steady state}
+         \PY{c+c1}{\PYZsh{}Long term response}
+         \PY{n}{fig7a} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax7a} \PY{o}{=} \PY{n}{fig7a}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax7a}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{Vo}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Output Voltage \PYZdl{}v\PYZus{}0(t)\PYZdl{} for large time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax7a}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 7a: Output Voltage \PYZdl{}v\PYZus{}0(t)\PYZdl{}  of series RLC network for given \PYZdl{}v\PYZus{}i(t)\PYZdl{} at Steady State}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{} t }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{} y(t) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure7a.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results and Discussion:}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  As we observe the plot and the circuit that we know it is a Low pass
+  filter with bandwidth \(0< \omega < 10^4\).
+\item
+  So when the circuit will only pass input with frequencies which are in
+  range of bandwidth only. But since its not a ideal low pass filter as
+  its gain doesn't drop abruptly at \(10^4\) rather gradual decrease
+  which is observed from magnitude response plot.
+\item
+  So the output \(V_o(t)\) will be mainly of \(\cos(10^{3}t)\) with
+  higher frequencies riding over it in long term response i.e Steady
+  state solution.
+\item
+  This behaviour is observed in the plot that,the
+  \(v_o(t) \approx \cos(10^{3}t)\) with higher frequencies riding over
+  it for large time.
+\item
+  The curve is very flickery or not smooth because of the high frequency
+  components only.
+\item
+  In the next plot we'll zoom large enough to observe those components.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{}plot of Vo(t) for large time i.e at steady state}
+         \PY{c+c1}{\PYZsh{}Long term response}
+         \PY{n}{fig7} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax7} \PY{o}{=} \PY{n}{fig7}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax7}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{Vo}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Output Voltage \PYZdl{}v\PYZus{}0(t)\PYZdl{} \PYZhy{} zoomed in }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax7}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{vo\PYZus{}ideal}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ideal Low Pass filter Output with cutoff at \PYZdl{}10\PYZca{}4\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlim}\PY{p}{(}\PY{l+m+mf}{0.0505}\PY{p}{,}\PY{l+m+mf}{0.051}\PY{p}{)}
+         \PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.75}\PY{p}{,}\PY{l+m+mf}{1.1}\PY{p}{)}
+         \PY{n}{ax7}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 7b: Output Voltage \PYZdl{}v\PYZus{}0(t)\PYZdl{}  Vs Ideal Low pass filter Output}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{} t }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{} y(t) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure7b.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results and Discussion:}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  The oscillatory behaviour in the graph is because of high frequency
+  components riding over the main signal which is \(\cos(10^{3}t)\)
+  since gain of the system \(\approx 1\) for lower frequencies than
+  \(\omega < 10^4\) and gradually decreases as 20dB/dec which is
+  observed from magnitude response plot and for very high frequencies
+  40dB/dec.
+\item
+  So there will be some higher frequencies but the gain will be very
+  less since its low pass filter ,that's why we can see there are very
+  small sinusoidal oscillations over the main output signal compared to
+  ideal low pass filter output which is \(\cos(10^{3}t)\)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{}Plot of Vo(t) for 0\PYZlt{}t\PYZlt{}30usec}
+         \PY{n}{fig8} \PY{o}{=} \PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax8} \PY{o}{=} \PY{n}{fig8}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax8}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{Vo}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Output Voltage \PYZdl{}v\PYZus{}0(t)\PYZdl{} : \PYZdl{}0\PYZlt{}t\PYZlt{}30}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mu sec\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax8}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure 8: Output Voltage \PYZdl{}v\PYZus{}0(t)\PYZdl{} for \PYZdl{}0\PYZlt{}t\PYZlt{}30}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{mu sec\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{3e\PYZhy{}5}\PY{p}{)}
+         \PY{n}{ylim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{,}\PY{l+m+mf}{0.3}\PY{p}{)}
+         \PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{} t }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{} v\PYZus{}0(t) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{to \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Figure8.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Results and Discussion:}\label{results-and-discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  As we observe the plot of Figure 8 , for \(v_0(t)\) from
+  \(0<t<30\mu sec\) increases very fast from 0 to 0.3 in just
+  \(30\mu s\) because of transients that is we apply sinusoidal step
+  input to the system i.e the input is zero for \(t<0\), so when
+  abruptly the input becomes non zero for \(t \geq 0\), the system
+  output jumps or raises suddenly from 0 to non-zero values in less
+  time.
+\item
+  That's why we observe a sharp rise in output at the start.
+\item
+  And the oscillatory behaviour in the graph is because of high
+  frequency components riding over the main signal which is
+  \(\cos(10^{3}t)\) since gain of the system \(\approx 1\) for lower
+  frequencies than \(\omega < 10^4\).
+\end{itemize}
+
+    \subsection{Conclusion:}\label{conclusion}
+
+\begin{itemize}
+\tightlist
+\item
+  So to conclude we analysed a way to find the solution of continuous
+  time LTI systems using laplace transform with help of python signals
+  toolbox and got familiarised with solving of differential equations by
+  taking laplace transform instead of doing arduous time domain
+  analysis.
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
